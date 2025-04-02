@@ -6,7 +6,7 @@ docker compose build
 
 docker compose up -d
 
-docker exec -it playwright-test bash
+docker exec -it playwright-tests bash
 
 
 

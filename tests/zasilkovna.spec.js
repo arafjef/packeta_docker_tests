@@ -18,15 +18,13 @@ test('Go and find Test Automation Engineer', async ({ page }) => {
   await page.getByRole('link', { name: 'Všechny pracovní nabídky' }).click();
 
   const jobBlock = page.locator('div.p-md-16:has(h4.job-title:has-text("Test Automation Engineer"))');
-
-  // můžeme si být jistí, že je to jen jeden
   await expect(jobBlock).toHaveCount(1); 
 
-  // Hledáme opět v blocku jobBlock text Zobrazit pozici
   const showBtn = jobBlock.locator('a:has-text("Zobrazit pozici")');
   await expect(showBtn).toBeVisible();
   await showBtn.click();
 
+  // timeout jen pro účely testu ..
   await page.waitForTimeout(1000);
 
   await expect(page.getByRole('heading', { name: 'Test Automation Engineer' })).toBeVisible();

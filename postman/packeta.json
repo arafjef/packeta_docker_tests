@@ -1,0 +1,612 @@
+{
+	"info": {
+		"_postman_id": "c5cdadfe-f6ad-42c2-908b-f81062f33420",
+		"name": "packeta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13734180"
+	},
+	"item": [
+		{
+			"name": "Search_job",
+			"item": [
+				{
+					"name": "01_Packeta_Homepage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"01_PACKETA_Status_code_assertion\", () => {\r",
+									"    if (pm.response.code !== 200) {\r",
+									"        console.error(`ERROR! Status code: ${pm.response.code}`);\r",
+									"    }\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "host",
+								"value": "www.zasilkovna.cz"
+							},
+							{
+								"key": "Accept",
+								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8"
+							},
+							{
+								"key": "Sec-GPC",
+								"value": "1"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"134\", \"Not:A-Brand\";v=\"24\", \"Brave\";v=\"134\""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "document"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "navigate"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-origin"
+							},
+							{
+								"key": "Sec-Fetch-User",
+								"value": "?1"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "Upgrade-Insecure-Requests",
+								"value": "1"
+							}
+						],
+						"url": {
+							"raw": "{{url_packeta_home}}/",
+							"host": [
+								"{{url_packeta_home}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02_Packeta_Career_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"02.01_PACKETA_Status_code_assertion\", () => {\r",
+									"    if (pm.response.code !== 200) {\r",
+									"        console.error(`ERROR! Status code: ${pm.response.code}`);\r",
+									"    }\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.unset(\"job_id\");\r",
+									"\r",
+									"let bodyData = pm.response.json()\r",
+									"\r",
+									"\r",
+									"// Najdeme první pozici s title \"Test Automation Engineer\"\r",
+									"let targetJob = bodyData.find(job => job.title === \"Test Automation Engineer\");\r",
+									"\r",
+									"pm.test(\"02.02_PACKETA_Job_title_search_and_variable_set\", () => {\r",
+									"    pm.expect(targetJob).to.not.be.undefined;\r",
+									"\r",
+									"    // Uložíme job_id do environment proměnné\r",
+									"    pm.collectionVariables.set(\"job_id\", targetJob.job_id);\r",
+									"\r",
+									"    console.log(\"Nalezen job_id pro Test Automation Engineer:\", targetJob.job_id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "host",
+								"value": "packeta-websites-fa1.azurewebsites.net"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Sec-GPC",
+								"value": "1"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"134\", \"Not:A-Brand\";v=\"24\", \"Brave\";v=\"134\""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "cross-site"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							}
+						],
+						"url": {
+							"raw": "{{url_packeta_jobs}}/api/apiHub/career/zasilkovna-cz",
+							"host": [
+								"{{url_packeta_jobs}}"
+							],
+							"path": [
+								"api",
+								"apiHub",
+								"career",
+								"zasilkovna-cz"
+							],
+							"query": [
+								{
+									"key": "results",
+									"value": "3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "03_Packeta_Test_Automation_Engineer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"03.01_PACKETA_Status_code_assertion\", () => {\r",
+									"    if (pm.response.code !== 200) {\r",
+									"        console.error(`ERROR! Status code: ${pm.response.code}`);\r",
+									"    }\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"let bodyData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"03.02_PACKETA_Title_assertion'\", () => {\r",
+									"    pm.expect(bodyData.title).to.eql(\"Test Automation Engineer\");\r",
+									"    console.log(\"Title odpovídá:\", bodyData.title);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "host",
+								"value": "packeta-websites-fa1.azurewebsites.net"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Sec-GPC",
+								"value": "1"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"134\", \"Not:A-Brand\";v=\"24\", \"Brave\";v=\"134\""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "cross-site"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							}
+						],
+						"url": {
+							"raw": "{{url_packeta_jobs}}/api/apiHub/career/zasilkovna-cz/{{job_id}}",
+							"host": [
+								"{{url_packeta_jobs}}"
+							],
+							"path": [
+								"api",
+								"apiHub",
+								"career",
+								"zasilkovna-cz",
+								"{{job_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tracking_packet",
+			"item": [
+				{
+					"name": "04_Packeta_Homepage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"04_PACKETA_Status_code_assertion\", () => {\r",
+									"    if (pm.response.code !== 200) {\r",
+									"        console.error(`ERROR! Status code: ${pm.response.code}`);\r",
+									"    }\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "host",
+								"value": "www.zasilkovna.cz"
+							},
+							{
+								"key": "Accept",
+								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8"
+							},
+							{
+								"key": "Sec-GPC",
+								"value": "1"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"134\", \"Not:A-Brand\";v=\"24\", \"Brave\";v=\"134\""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "document"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "navigate"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-origin"
+							},
+							{
+								"key": "Sec-Fetch-User",
+								"value": "?1"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "Upgrade-Insecure-Requests",
+								"value": "1"
+							}
+						],
+						"url": {
+							"raw": "{{url_packeta_home}}/",
+							"host": [
+								"{{url_packeta_home}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "05_Packeta_Tracking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"05_PACKETA_Status_code_assertion\", () => {\r",
+									"    if (pm.response.code !== 200) {\r",
+									"        console.error(`ERROR! Status code: ${pm.response.code}`);\r",
+									"    }\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"// Unset aktuální hodnoty v proměnné\r",
+									"pm.collectionVariables.unset(\"dispensing_point\");\r",
+									"\r",
+									"\r",
+									"// Přečteme response jako text (ne JSON, protože je to HTML/JS)\r",
+									"let bodyText = pm.response.text();\r",
+									"\r",
+									"// Použijeme regex k nalezení URL obsahující \"zasilkovna.cz/pobocky/\"\r",
+									"let match = bodyText.match(/https:\\/\\/zasilkovna\\.cz\\/pobocky\\/([a-zA-Z0-9\\-]+)/);\r",
+									"\r",
+									"// Pokud se nalezne, uložíme část za \"pobocky/\" do proměnné\r",
+									"if (match && match[1]) {\r",
+									"    let dispensingPoint = match[1];\r",
+									"    pm.collectionVariables.set(\"dispensing_point\", dispensingPoint);\r",
+									"    console.log(\"Výdejní místo:\", dispensingPoint);\r",
+									"} else {\r",
+									"    console.error(\"Výdejní místo nebylo nalezen!\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "host",
+								"value": "tracking.packeta.com"
+							},
+							{
+								"key": "Accept",
+								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8"
+							},
+							{
+								"key": "Sec-GPC",
+								"value": "1"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"134\", \"Not:A-Brand\";v=\"24\", \"Brave\";v=\"134\""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "document"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "navigate"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "cross-site"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "Upgrade-Insecure-Requests",
+								"value": "1"
+							}
+						],
+						"url": {
+							"raw": "{{url_packeta_tracking}}/cs/{{packet_id}}",
+							"host": [
+								"{{url_packeta_tracking}}"
+							],
+							"path": [
+								"cs",
+								"{{packet_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "06_Branch_dispensing_point",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"06_PACKETA_Status_code_assertion\", () => {\r",
+									"    if (pm.response.code !== 200) {\r",
+									"        console.error(`ERROR! Status code: ${pm.response.code}`);\r",
+									"    }\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "host",
+								"value": "zasilkovna.cz"
+							},
+							{
+								"key": "Accept",
+								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8"
+							},
+							{
+								"key": "Sec-GPC",
+								"value": "1"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Chromium\";v=\"134\", \"Not:A-Brand\";v=\"24\", \"Brave\";v=\"134\""
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "document"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "navigate"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "cross-site"
+							},
+							{
+								"key": "Sec-Fetch-User",
+								"value": "?1"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							},
+							{
+								"key": "Upgrade-Insecure-Requests",
+								"value": "1"
+							}
+						],
+						"url": {
+							"raw": "{{url_packeta_home}}/pobocky/{{dispensing_point}}",
+							"host": [
+								"{{url_packeta_home}}"
+							],
+							"path": [
+								"pobocky",
+								"{{dispensing_point}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "packet_id",
+			"value": "Z%20384%201556%20051",
+			"type": "string"
+		},
+		{
+			"key": "job_id",
+			"value": ""
+		},
+		{
+			"key": "dispensing_point",
+			"value": ""
+		}
+	]
+}

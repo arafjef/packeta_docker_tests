@@ -1,0 +1,27 @@
+{
+	"id": "988be9f0-f121-43ba-9045-f4943977ab5c",
+	"name": "packeta_env",
+	"values": [
+		{
+			"key": "url_packeta_jobs",
+			"value": "https://packeta-websites-fa1.azurewebsites.net",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "url_packeta_home",
+			"value": "https://zasilkovna.cz",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "url_packeta_tracking",
+			"value": "https://tracking.packeta.com",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-04-02T10:10:04.807Z",
+	"_postman_exported_using": "Postman/11.37.5"
+}

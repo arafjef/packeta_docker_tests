@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 
 
+// Nastavení velikosti okna prohlížeče
+
 test.use({ viewport: { width: 1920, height: 1080 } });
 
 
@@ -8,6 +10,7 @@ test.use({ viewport: { width: 1920, height: 1080 } });
 
 test('Go and find Test Automation Engineer', async ({ page }) => {
   await page.goto('https://www.zasilkovna.cz/');
+
   await page.getByRole('button', { name: 'Přijmout všechny cookies' }).click();
 
   const zasSection = page.locator('a.custom-nav-link:has(span:has-text("O Zásilkovně"))');
@@ -28,6 +31,8 @@ test('Go and find Test Automation Engineer', async ({ page }) => {
   await page.waitForTimeout(1000);
 
   await expect(page.getByRole('heading', { name: 'Test Automation Engineer' })).toBeVisible();
+
+    // timeout jen pro účely testu ..
   await page.waitForTimeout(3000);
 
 

@@ -42,7 +42,7 @@ npx newman run ./postman/packeta.json \
 ------------------------------ CI pipeline -----------------------------
 ------------------------------------------------------------------------
 
-- .github/pipeline/tests.yml 
+- .github/workflows/tests.yml 
 
 - CI po každém push nebo pull requestu do repozitáře spustí automaticky
 testy z /tests a /postman

@@ -44,7 +44,7 @@ npx newman run ./postman/packeta.json \
 - CI po každém push nebo pull requestu do repozitáře spustí automaticky testy z /tests a /postman
 
 
-# Packeta Docker Tests
+# Packeta Docker Tests Result
 ![CI](https://github.com/arafjef/packeta_docker_tests/actions/workflows/tests.yml/badge.svg)
 
 

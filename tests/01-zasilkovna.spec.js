@@ -18,6 +18,8 @@ test('Go and find Test Automation Engineer', async ({ page }) => {
   await zasSection.hover();
 
   await page.getByRole('link', { name: 'Kariéra' }).click();
+  await expect(page).toHaveURL('https://www.zasilkovna.cz/kariera');
+
   await page.getByRole('link', { name: 'Všechny pracovní nabídky' }).click();
 
   const jobBlock = page.locator('div.p-md-16:has(h4.job-title:has-text("Test Automation Engineer"))');

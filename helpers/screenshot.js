@@ -6,7 +6,7 @@ export async function saveScreenshot(page, testInfo) {
   const testName = testInfo.title.replace(/\s+/g, '-');
 
   // Absolutní cesta – úprava přesně pro tvůj počítač
-  const screenshotsDir = '../screenshots';
+  const screenshotsDir = '../screenshots/packeta';
 
   if (!fs.existsSync(screenshotsDir)) {
     fs.mkdirSync(screenshotsDir, { recursive: true });

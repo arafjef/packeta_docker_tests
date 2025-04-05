@@ -7,7 +7,7 @@ import { saveScreenshot } from '../helpers/screenshot.js';
 test.use({ viewport: { width: 1920, height: 1080 } });
 
 
-// Samotný TEST 
+// TESTY 
 
 test('Go and find Test Automation Engineer', async ({ page }, testInfo) => {
   
@@ -57,7 +57,7 @@ test('Apple app link click check', async ({ page }, testInfo) => {
   // čekám až se nová stránka načte
   await newTab.waitForLoadState();
 
-  // asserce, že na stránce vidím Packeta a URL
+  // asserce, že na stránce vidím Zásilkovna a URL
   await expect(newTab.getByRole('heading', { name: 'Zásilkovna 4+' })).toBeVisible();
   await expect(newTab).toHaveURL('https://apps.apple.com/cz/app/z%C3%A1silkovna/id1439905771?l=cs');
 

@@ -2,18 +2,16 @@ import { test, expect } from '@playwright/test';
 import { acceptCookies } from '../helpers/cookies.js';
 import { saveScreenshot } from '../helpers/screenshot.js';
 
-// nastavení velikosti okna prohlížeče
 
-test.use({ viewport: { width: 1920, height: 1080 } });
-
+test.beforeEach(async ({ page }) => {
+  await acceptCookies(page);
+  await expect(page).toHaveURL('https://www.zasilkovna.cz/');
+});
 
 // TESTY 
 
 test('Go and find Test Automation Engineer', async ({ page }, testInfo) => {
   
-  await acceptCookies(page);
-  await expect(page).toHaveURL('https://www.zasilkovna.cz/');
-
   const zasSection = page.locator('a.custom-nav-link:has(span:has-text("O Zásilkovně"))');
   await expect(zasSection).toBeVisible();
   await zasSection.hover();
@@ -46,9 +44,7 @@ test('Go and find Test Automation Engineer', async ({ page }, testInfo) => {
 
 
 test('Apple app link click check', async ({ page }, testInfo) => {
-  await acceptCookies(page);
-  await expect(page).toHaveURL('https://www.zasilkovna.cz/');
-
+  
   // zachycení nově otevřeného tabu (popup)
   const newTabPromise = page.waitForEvent('popup');
   await page.getByRole('link', { name: 'app-store-badge_cs' }).click();
@@ -68,9 +64,7 @@ test('Apple app link click check', async ({ page }, testInfo) => {
 
 
 test('Android app link click check', async ({ page }, testInfo) => {
-  await acceptCookies(page);
-  await expect(page).toHaveURL('https://www.zasilkovna.cz/');
-
+  
   // zachycení nově otevřeného tabu (popup)
   const newTabPromise = page.waitForEvent('popup');
   await page.getByRole('link', { name: 'google-play-badge_cs' }).click();

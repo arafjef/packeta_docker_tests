@@ -2,3 +2,4 @@ test-results/
 node_modules/
 /tests/02-zasilkovna.spec.js
 screenshots/*
+!screenshots/.gitkeep

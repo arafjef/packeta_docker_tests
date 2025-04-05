@@ -1,7 +1,7 @@
 // playwright.config.js
 
-import { cpus } from "os";
-import { config } from "process";
+// import { cpus } from "os";
+// import { config } from "process";
 //import { devices } from "@playwright/test";
 
 module.exports = {
@@ -15,7 +15,6 @@ module.exports = {
       trace: 'on'
     },
     testDir: 'tests', 
-    workers: cpus().length / 2,
 /*
     projects: [
       {

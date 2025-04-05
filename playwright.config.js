@@ -10,8 +10,8 @@ module.exports = {
     use: {
       headless: false,
       viewport: { width: 1920, height: 1080},
-      // screenshot: 'only-on-failure',
-      // video: 'retain-on-failure',
+      screenshot: 'only-on-failure',
+      video: 'retain-on-failure',
       trace: 'on'
     },
     testDir: 'tests', 

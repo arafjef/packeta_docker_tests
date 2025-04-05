@@ -2,10 +2,13 @@ import fs from 'fs';
 import path from 'path';
 
 export async function saveScreenshot(page, testInfo) {
-  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const testName = testInfo.title.replace(/\s+/g, '-');
+  const now = new Date();
+  const timestamp = now.toLocaleString('sv-SE', {
+    timeZone: 'Europe/Prague',
+    hour12: false
+  }).replace(/[: ]/g, '-').replace(',', '');
 
-  // Absolutní cesta – úprava přesně pro tvůj počítač
+  const testName = testInfo.title.replace(/\s+/g, '-');
   const screenshotsDir = 'screenshots';
 
   if (!fs.existsSync(screenshotsDir)) {

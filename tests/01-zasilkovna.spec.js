@@ -1,17 +1,18 @@
 import { test, expect } from '@playwright/test';
+import { acceptCookies } from '../helpers/cookies.js';
+import { saveScreenshot } from '../helpers/screenshot.js';
 
-
-// Nastavení velikosti okna prohlížeče
+// nastavení velikosti okna prohlížeče
 
 test.use({ viewport: { width: 1920, height: 1080 } });
 
 
 // Samotný TEST 
 
-test('Go and find Test Automation Engineer', async ({ page }) => {
-  await page.goto('https://www.zasilkovna.cz/');
-
-  await page.getByRole('button', { name: 'Přijmout všechny cookies' }).click();
+test('Go and find Test Automation Engineer', async ({ page }, testInfo) => {
+  
+  await acceptCookies(page);
+  await expect(page).toHaveURL('https://www.zasilkovna.cz/');
 
   const zasSection = page.locator('a.custom-nav-link:has(span:has-text("O Zásilkovně"))');
   await expect(zasSection).toBeVisible();
@@ -37,5 +38,51 @@ test('Go and find Test Automation Engineer', async ({ page }) => {
     // timeout jen pro účely testu ..
   await page.waitForTimeout(3000);
 
+  await saveScreenshot(page, testInfo);
 
+
+});
+
+
+
+test('Apple app link click check', async ({ page }, testInfo) => {
+  await acceptCookies(page);
+  await expect(page).toHaveURL('https://www.zasilkovna.cz/');
+
+  // zachycení nově otevřeného tabu (popup)
+  const newTabPromise = page.waitForEvent('popup');
+  await page.getByRole('link', { name: 'app-store-badge_cs' }).click();
+  const newTab = await newTabPromise;
+
+  // čekám až se nová stránka načte
+  await newTab.waitForLoadState();
+
+  // asserce, že na stránce vidím Packeta a URL
+  await expect(newTab.getByRole('heading', { name: 'Zásilkovna 4+' })).toBeVisible();
+  await expect(newTab).toHaveURL('https://apps.apple.com/cz/app/z%C3%A1silkovna/id1439905771?l=cs');
+
+  // screenshot z nového tabu
+  await saveScreenshot(newTab, testInfo);
+});
+
+
+
+test('Android app link click check', async ({ page }, testInfo) => {
+  await acceptCookies(page);
+  await expect(page).toHaveURL('https://www.zasilkovna.cz/');
+
+  // zachycení nově otevřeného tabu (popup)
+  const newTabPromise = page.waitForEvent('popup');
+  await page.getByRole('link', { name: 'google-play-badge_cs' }).click();
+  const newTab = await newTabPromise;
+
+  // čekám až se nová stránka načte
+  await newTab.waitForLoadState();
+
+  // asserce, že na stránce vidím Packeta a URL
+  await expect(newTab.getByRole('heading', { name: 'Packeta' })).toBeVisible();
+  await expect(newTab).toHaveURL('https://play.google.com/store/apps/details?id=cz.zasilkovna.app&hl=cz');
+
+  // screenshot z nového tabu
+  await saveScreenshot(newTab, testInfo);
 });

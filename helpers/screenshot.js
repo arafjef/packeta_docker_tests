@@ -13,7 +13,7 @@ export async function saveScreenshot(page, testInfo) {
   }
 
   const screenshotPath = path.join(screenshotsDir, `${timestamp}-Packeta_${testName}.png`);
-  console.log(`📸 Screenshot uložen na: ${screenshotPath}`);
+  console.log(`Screenshot uložen na: ${screenshotPath}`);
 
   await page.screenshot({ path: screenshotPath, fullPage: true });
 }
